@@ -1,0 +1,40 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Plates"
+						}
+					}
+				]
+			},
+			"body": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Aliquip proident magna laboris aliquip pariatur ipsum sunt enim ut aute."
+						}
+					}
+				]
+			},
+			"button": {
+				"key": "43b51424-9378-41ef-9015-5ad345a1661e",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "wagon"
+				}
+			}
+		},
+		"items": []
+	}
+]
