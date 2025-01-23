@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { ContactShadows, Environment, OrbitControls } from '@react-three/drei';
 import { Skateboard } from '@/components/Skateboard';
 
 type Props = {}
@@ -22,8 +22,10 @@ export function InteractiveSkateboard({}: Props) {
 function Scene() {
   return (
     <group>
+      <OrbitControls />
       <Environment files={"/hdr/warehouse-256.hdr"} />
       <Skateboard />
+      <ContactShadows opacity={0.6} position={[0, -0.08, 0]} />
     </group>
   )
 }
