@@ -40,7 +40,11 @@ export function Skateboard({
 
   const wheelRefs = useRef<THREE.Object3D[]>([])
 
-  const { nodes } = useGLTF('/skateboard.gltf') as GLTFResult
+  const { nodes } = useGLTF('/skateboard.gltf') as unknown as GLTFResult;
+
+  if (!nodes) {
+    throw new Error('Failed to load GLTF nodes. Verify the file path and structure.');
+  }
 
   const wheelTextures = useTexture(wheelTextureURLs)
   wheelTextures.forEach((texture) => {

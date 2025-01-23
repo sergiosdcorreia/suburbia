@@ -1,8 +1,8 @@
 import { CSSProperties, ElementType, ReactNode } from "react";
 import clsx from "clsx";
 
-type BoundedProps = {
-  as?: ElementType;
+type BoundedProps<T extends ElementType = "section"> = {
+  as?: T;
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
