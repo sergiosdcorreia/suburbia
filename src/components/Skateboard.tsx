@@ -107,7 +107,7 @@ export function Skateboard({
     normalScale: new THREE.Vector2( .3, .3 ),
     metalness: .8,
     roughness: .25
-  }),[truckColor])
+  }),[truckColor, metalNormal])
 
   const deckMaterial = useMemo(() => new THREE.MeshStandardMaterial({
     map: deckTexture,

@@ -45,7 +45,7 @@ function Scene({
     const board = containerRef.current
     if (!board) return
 
-    const { name } = event.object
+    // const { name } = event.object
 
     gsap.timeline()
       .to(board.position, {
