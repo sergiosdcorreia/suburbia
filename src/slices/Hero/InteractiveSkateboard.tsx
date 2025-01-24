@@ -2,7 +2,7 @@
 
 import React, { Suspense, useRef } from 'react'
 import { Canvas, ThreeEvent } from '@react-three/fiber';
-import { ContactShadows, Environment, OrbitControls } from '@react-three/drei';
+import { ContactShadows, Environment } from '@react-three/drei';
 import { Skateboard } from '@/components/Skateboard';
 import * as THREE from 'three';
 import gsap from 'gsap'
