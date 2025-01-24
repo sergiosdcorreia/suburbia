@@ -1,4 +1,4 @@
-import { CSSProperties, ElementType, ReactNode } from "react";
+import { CSSProperties, ElementType, ReactElement, ReactNode } from "react";
 import clsx from "clsx";
 
 type BoundedProps<T extends ElementType = "section"> = {
@@ -6,14 +6,14 @@ type BoundedProps<T extends ElementType = "section"> = {
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
-};
+} & React.ComponentPropsWithoutRef<T>;
 
-export function Bounded({
+export function Bounded<T extends ElementType = "section">({
   as: Comp = "section",
   className,
   children,
   ...restProps
-}: BoundedProps) {
+}: BoundedProps<T>): ReactElement {
   return (
     <Comp
       className={clsx(
