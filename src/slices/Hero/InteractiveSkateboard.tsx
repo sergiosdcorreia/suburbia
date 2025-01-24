@@ -80,7 +80,6 @@ function Scene({
 
   return (
     <group>
-      <OrbitControls />
       <Environment files={"/hdr/warehouse-256.hdr"} />
       <group ref={containerRef} position={[-.25, 0, -.635]}>
         <group position={[0, -.086, .635]}>
