@@ -8,6 +8,7 @@ import { CustomizerControlsProvider } from './context'
 import { createClient } from '@/prismicio'
 import Preview from './Preview'
 import { asImageSrc } from '@prismicio/client'
+import Controls from './Controls'
 
 export default async function page() {
   const client = createClient()
@@ -46,7 +47,12 @@ export default async function page() {
           <Heading as='h1' size='sm' className='mb-6 mt-0'>
             Build your board
           </Heading>
-
+          <Controls
+            wheels={wheels}
+            decks={decks}
+            metals={metals}
+            className='mb-6'
+          />
           <ButtonLink href="" color='lime' icon='plus'>
             Add to cart
           </ButtonLink>
