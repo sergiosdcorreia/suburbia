@@ -17,6 +17,7 @@ type SkateboardProps = {
   truckColor: string
   boltColor: string
   constantWheelSpin?: boolean
+  pose?: "upright" | "side"
 }
 
 type GLTFResult = GLTF & {
@@ -35,7 +36,14 @@ type GLTFResult = GLTF & {
 }
 
 export function Skateboard({
-  wheelTextureURL, wheelTextureURLs, deckTextureURL, deckTextureURLs, truckColor, boltColor, constantWheelSpin = false
+  wheelTextureURL,
+  wheelTextureURLs,
+  deckTextureURL,
+  deckTextureURLs,
+  truckColor,
+  boltColor,
+  constantWheelSpin = false,
+  pose = "upright"
 }: SkateboardProps) {
 
   const wheelRefs = useRef<THREE.Object3D[]>([])
@@ -64,7 +72,7 @@ export function Skateboard({
 
   const gripTapeDiffuse = useTexture("/skateboard/griptape-diffuse.webp")
   const gripTapeRoughness = useTexture("/skateboard/griptape-roughness.webp")
-  
+
   const gripTapeMaterial = useMemo(() => {
     const material = new THREE.MeshStandardMaterial({
       map: gripTapeDiffuse,
@@ -149,8 +157,23 @@ export function Skateboard({
     }
   }, [constantWheelSpin, wheelTextureURL])
 
+  const positions = useMemo(() => ({
+    upright: {
+      rotation: [ 0, 0, 0 ],
+      position: [ 0, 0, 0 ]
+    },
+    side: {
+      rotation: [ 0, 0, Math.PI / 2 ],
+      position: [ 0, .295, 0 ]
+    }
+  }) as const, [])
+
   return (
-    <group dispose={null}>
+    <group
+      dispose={null}
+      rotation={positions[pose].rotation}
+      position={positions[pose].position}
+    >
       <group name="Scene">
         <mesh
           name="GripTape"
