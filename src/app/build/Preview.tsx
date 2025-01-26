@@ -2,7 +2,7 @@
 
 import { CameraControls, Environment, Preload, useTexture } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
-import { Suspense, useRef } from "react"
+import { Suspense, useEffect, useRef } from "react"
 import { useCustomizerControls } from "./context"
 import { asImageSrc } from "@prismicio/client"
 import { Skateboard } from "@/components/Skateboard"
@@ -28,6 +28,41 @@ export default function Preview({ wheelTextureURLs, deckTextureURLs }: Props) {
   const deckTextureURL = asImageSrc(selectedDeck?.texture) ?? DEFAULT_DECK_TEXTURE
   const truckColor = selectedTruck?.color ?? DEFAULT_TRUCK_COLOR
   const boltColor = selectedBolt?.color ?? DEFAULT_BOLT_COLOR
+
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(0, .3, 0),
+      new THREE.Vector3(1.5, .8, 0)
+    )
+  }, [selectedDeck])
+
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(-.12, .29, .57),
+      new THREE.Vector3(.1, .25, .9)
+    )
+  }, [selectedTruck])
+
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(-.08, .54, .64),
+      new THREE.Vector3(.09, 1, .9)
+    )
+  }, [selectedWheel])
+
+  useEffect(() => {
+    setCameraControls(
+      new THREE.Vector3(-.25, .3, .62),
+      new THREE.Vector3(-.5, .35, .8)
+    )
+  }, [selectedBolt])
+
+  function setCameraControls(target: THREE.Vector3, pos: THREE.Vector3) {
+    if (!cameraControls.current) return
+
+    cameraControls.current.setTarget(target.x, target.y, target.z, true)
+    cameraControls.current.setPosition(pos.x, pos.y, pos.z, true)
+  }
 
   function onCameraControlStart() {
     if (!cameraControls.current || !floorRef.current || cameraControls.current.colliderMeshes.length > 0 ) return
