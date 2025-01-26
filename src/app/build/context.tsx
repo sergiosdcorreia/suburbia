@@ -1,7 +1,7 @@
 "use client"
 
 import { Content } from "@prismicio/client"
-import { createContext, ReactNode, useContext, useMemo, useState } from "react"
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react"
 
 type CustomizerControlsContext = {
   selectedWheel?: Content.BoardCustomizerDocumentDataWheelsItem
@@ -43,6 +43,16 @@ export function CustomizerControlsProvider({
   const [selectedDeck, setDeck] = useState(defaultDeck)
   const [selectedTruck, setTruck] = useState(defaultTruck)
   const [selectedBolt, setBolt] = useState(defaultBolt)
+
+  useEffect(() => {
+    const boardConfig = {
+      wheel: selectedWheel || "default-wheel",
+      deck: selectedDeck || "default-deck",
+      truck: selectedTruck || "default-truck",
+      bolt: selectedBolt || "default-bolt",
+    }
+    localStorage.setItem("boardConfig", JSON.stringify(boardConfig))
+  }, [selectedWheel, selectedDeck, selectedTruck, selectedBolt])
 
   const value = useMemo<CustomizerControlsContext>(() => {
     return {selectedWheel, selectedDeck, selectedTruck, selectedBolt, setWheel, setDeck, setTruck, setBolt}
