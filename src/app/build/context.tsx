@@ -45,18 +45,32 @@ export function CustomizerControlsProvider({
   const [selectedBolt, setBolt] = useState(defaultBolt)
 
   useEffect(() => {
-    const boardConfig = {
-      wheel: selectedWheel || "default-wheel",
-      deck: selectedDeck || "default-deck",
-      truck: selectedTruck || "default-truck",
-      bolt: selectedBolt || "default-bolt",
+    const savedConfig = localStorage.getItem("boardConfig");
+    if (savedConfig) {
+      const { wheel, deck, truck, bolt } = JSON.parse(savedConfig);
+
+      setWheel(wheel || undefined);
+      setDeck(deck || undefined);
+      setTruck(truck || undefined);
+      setBolt(bolt || undefined);
     }
-    localStorage.setItem("boardConfig", JSON.stringify(boardConfig))
-  }, [selectedWheel, selectedDeck, selectedTruck, selectedBolt])
+  }, []);
+
+  useEffect(() => {
+    if (selectedWheel && selectedDeck && selectedTruck && selectedBolt) {
+      const boardConfig = {
+        wheel: selectedWheel,
+        deck: selectedDeck,
+        truck: selectedTruck,
+        bolt: selectedBolt,
+      };
+      localStorage.setItem("boardConfig", JSON.stringify(boardConfig));
+    }
+  }, [selectedWheel, selectedDeck, selectedTruck, selectedBolt]);
 
   const value = useMemo<CustomizerControlsContext>(() => {
     return {selectedWheel, selectedDeck, selectedTruck, selectedBolt, setWheel, setDeck, setTruck, setBolt}
-  }, [selectedWheel, selectedDeck, selectedTruck, selectedBolt])
+  }, [selectedWheel, selectedDeck, selectedTruck, selectedBolt, setWheel, setDeck, setTruck, setBolt])
 
   return (
     <CustomizerControlsContext.Provider value={value}>

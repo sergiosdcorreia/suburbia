@@ -2,7 +2,7 @@
 
 import { Content } from "@prismicio/client";
 import { PrismicRichText, PrismicText, SliceComponentProps } from "@prismicio/react";
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 
 import { Bounded } from "@/components/Bounded";
 import { Heading } from "@/components/Heading";
@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { WideLogo } from "./WideLogo";
 import { TallLogo } from "./TallLogo";
 import { InteractiveSkateboard } from "./InteractiveSkateboard";
+import { useCustomizerControls } from "@/app/build/context";
 
 const DEFAULT_DECK_TEXTURE = "/skateboard/Deck.webp"
 const DEFAULT_WHEEL_TEXTURE = "/skateboard/SkateWheel1.png"
@@ -26,29 +27,14 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
 
-  const [wheel, setWheel] = useState<any>(null);
-  const [deck, setDeck] = useState<any>(null);
-  const [truck, setTruck] = useState<any>(null);
-  const [bolt, setBolt] = useState<any>(null);
+  const { selectedDeck, selectedWheel, selectedBolt, selectedTruck } = useCustomizerControls()
 
-  useEffect(() => {
-    const boardConfig = localStorage.getItem("boardConfig");
+  const deckTextureURL = selectedDeck?.texture?.url || DEFAULT_DECK_TEXTURE
+  const wheelTextureURL = selectedWheel?.texture?.url || DEFAULT_WHEEL_TEXTURE
+  const truckColor = selectedTruck?.color || DEFAULT_TRUCK_COLOR
+  const boltColor = selectedBolt?.color || DEFAULT_BOLT_COLOR
 
-    if (boardConfig) {
-      const { wheel, deck, truck, bolt } = JSON.parse(boardConfig);
-
-      // Set the state based on the localStorage data
-      setWheel(wheel);
-      setDeck(deck);
-      setTruck(truck);
-      setBolt(bolt);
-    }
-  }, []);
-
-  const deckTextureURL = deck?.texture?.url || DEFAULT_DECK_TEXTURE
-  const wheelTextureURL = wheel?.texture?.url || DEFAULT_WHEEL_TEXTURE
-  const truckColor = truck?.color || DEFAULT_TRUCK_COLOR
-  const boltColor = bolt?.color || DEFAULT_BOLT_COLOR
+  console.log("Deck texture url: ", deckTextureURL)
 
   return (
     <Bounded
