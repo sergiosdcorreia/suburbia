@@ -24,7 +24,7 @@ export default async function page(props:{searchParams:Promise<SearchParams>}) {
   const client = createClient()
   const customizerSettings = await client.getSingle("board_customizer")
   const { wheels, decks, metals } = customizerSettings.data
-  
+
   let defaultWheel
   let defaultDeck
   let defaultTruck
