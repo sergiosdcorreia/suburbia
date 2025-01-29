@@ -10,9 +10,9 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Header />
-        <CustomizerControlsProvider>
-          {children}
-        </CustomizerControlsProvider>
+      <CustomizerControlsProvider>
+        {children}
+      </CustomizerControlsProvider>
       <Footer />
     </>
   )
